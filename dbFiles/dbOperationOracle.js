@@ -1,7 +1,6 @@
 const   MAL           = require('myanimelist-api-wrapper'),
         oracledb      = require('oracledb'),
-        process       = require("process"),
-        env        = require('../dotenv.js');
+        process       = require("process")
 
 
 const getAnime = async(title) => {
@@ -345,7 +344,7 @@ const getMAL = async(Username, auth) => {
         console.log("authed")
         try {
             res = list({
-                client_id: env.MAL_CLIENT_ID,
+                client_id: MAL_CLIENT_ID,
                 user_name: "@me",
                 auth_token: auth,
                 limit: 1000
@@ -360,7 +359,7 @@ const getMAL = async(Username, auth) => {
         console.log("new")
         try {
             res = list({
-                client_id: env.MAL_CLIENT_ID,
+                client_id: MAL_CLIENT_ID,
                 user_name: Username,
                 limit: 1000
             }).get_animelist()()
@@ -375,7 +374,7 @@ const getTop100 = async() => {
     const anime = MAL().anime;
     try {
         let res = anime({
-            client_id: env.MAL_CLIENT_ID,
+            client_id: MAL_CLIENT_ID,
             ranking_type: "tv",
             limit: 100
         }).anime_ranking()()
