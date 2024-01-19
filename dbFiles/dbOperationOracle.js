@@ -1,49 +1,6 @@
 const   MAL           = require('myanimelist-api-wrapper'),
-        oracledb      = require('oracledb'),
-        process       = require("process")
+        oracledb      = require('oracledb')
 
-
-const getAnime = async(title) => {
-    let connection
-    try {        
-        connection = await oracledb.getConnection();
-        let res = connection.execute(`SELECT * FROM Anime WHERE Anime.Title='${title}'`);
-        // let res = pool.execute(`SELECT * FROM Anime`);
-        //console.log(res);
-        return res;
-    } catch(error) {
-        console.log(error);
-    } finally {
-        if (connection) {
-          try {
-            await connection.close(); // Put the connection back in the pool
-          } catch (err) {
-              throw (err);
-          }
-        }
-    }
-}
-const addAnime = async(Anime) => {
-    let connection
-    try {  
-        connection = await oracledb.getConnection();
-        let anime = connection.execute(`INSERT INTO Anime VALUES
-        (${Anime.ShowID}, '${Anime.Title}', '${Anime.ImageURL}')`);
-        // console.log(anime);
-        return anime;
-    }
-    catch(error) {
-        console.log(error);
-    } finally {
-        if (connection) {
-          try {
-            await connection.close(); // Put the connection back in the pool
-          } catch (err) {
-              throw (err);
-          }
-        }
-    }
-}
 
 const getActor = async(actID) => {
     let connection;
@@ -89,27 +46,6 @@ const getActorFull = async(actID, myList, flag) => {
             return res;
         }
         // console.log(res);
-    }
-    catch(error) {
-        console.log(error);
-    } finally {
-        if (connection) {
-          try {
-            await connection.close(); // Put the connection back in the pool
-          } catch (err) {
-              throw (err);
-          }
-        }
-    }
-}
-const addActor = async(Actor) => {
-    let connection
-    try {        
-        connection = await oracledb.getConnection();
-        let actor = connection.execute(`INSERT INTO Actors VALUES
-        (${Actor.ActorID}, '${Actor.ActorName}', ${Actor.Favorites}, '${Actor.ImageURL}')`);
-        // console.log(actor);
-        return actor;
     }
     catch(error) {
         console.log(error);
@@ -189,42 +125,6 @@ const getHomeActors = async(flag, myList) => {
                                         FETCH FIRST 50 ROWS ONLY`)
         }
         return res;
-    }
-    catch(error) {
-        console.log(error);
-    } finally {
-        if (connection) {
-          try {
-            await connection.close(); // Put the connection back in the pool
-          } catch (err) {
-              throw (err);
-          }
-        }
-    }
-}
-const getHomeData = async(flag, myList) => {
-    let connection
-    try {        
-        connection = await oracledb.getConnection();
-        if (flag) {
-            let res = connection.execute(`SELECT Roles.*, Actors.ActorName, Actors.ImageURL, Actors.aFavs, Anime.Title FROM Roles
-                                            INNER JOIN Actors ON Roles.ActorID=Actors.ActorID
-                                            INNER JOIN Anime ON Roles.ShowID=Anime.ShowID
-                                            WHERE Anime.ShowID IN ${myList}
-                                            ORDER BY Actors.aFavs DESC
-                                            FETCH FIRST 20 ROWS ONLY`);
-            return res;
-        } else {
-            let res = connection.execute(`SELECT * FROM Actors
-                                            ORDER BY Actors.aFavs DESC
-                                            FETCH FIRST 20 ROWS ONLY`)
-            // let res = connection.execute(`SELECT Roles.*, Actors.ActorName, Actors.ImageURL, Actors.aFavs, Anime.Title FROM Roles
-            //                             INNER JOIN Actors ON Roles.ActorID=Actors.ActorID
-            //                             INNER JOIN Anime ON Roles.ShowID=Anime.ShowID
-            //                             ORDER BY Actors.aFavs
-            //                             FETCH FIRST 20 ROWS ONLY`);
-            return res;
-        }
     }
     catch(error) {
         console.log(error);
@@ -344,7 +244,7 @@ const getMAL = async(Username, auth) => {
         console.log("authed")
         try {
             res = list({
-                client_id: MAL_CLIENT_ID,
+                client_id: process.env.MAL_CLIENT_ID,
                 user_name: "@me",
                 auth_token: auth,
                 limit: 1000
@@ -359,7 +259,7 @@ const getMAL = async(Username, auth) => {
         console.log("new")
         try {
             res = list({
-                client_id: MAL_CLIENT_ID,
+                client_id: process.env.MAL_CLIENT_ID,
                 user_name: Username,
                 limit: 1000
             }).get_animelist()()
@@ -374,7 +274,7 @@ const getTop100 = async() => {
     const anime = MAL().anime;
     try {
         let res = anime({
-            client_id: MAL_CLIENT_ID,
+            client_id: process.env.MAL_CLIENT_ID,
             ranking_type: "tv",
             limit: 100
         }).anime_ranking()()
@@ -387,13 +287,9 @@ const getTop100 = async() => {
 
 
 module.exports = {
-    addActor,
-    addAnime,
     getActor,
     getActorFull,
-    getAnime,
     getHomeActors,
-    getHomeData,
     getMAL,
     getSearchActorData,
     getSearchData,
