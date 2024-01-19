@@ -91,7 +91,7 @@ app.post('/api/homeActor', async(req, res) => {
     try {
         console.log('Called home actors', req.body.flag);
         const result = await dbOperation.getHomeActors(req.body.flag, req.body.myList)
-        console.log(result.rows)
+        // console.log(result.rows)
         res.send(result.rows);  
         
     } catch (error) {
@@ -157,7 +157,7 @@ app.post('/api/mal', async(req, res) => {
             const result = await dbOperation.getMAL(req.body.Username)
             // console.log(result.data.length)
             res.send(result);
-            console.log("sent")
+            // console.log("sent")
         } catch (error) {
             console.log(error.message)
             // Private Account
