@@ -253,7 +253,15 @@ app.post('/api/auth', async(req, res) => {
     }
 })
 
-
+app.post('/api/wake', async(req, res) => {
+    try {
+        str = "Waking Server";
+        console.log(str)
+        res.send(str)
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 
 // dbOperation.getMAL("RufusPeanut").then(res => {
