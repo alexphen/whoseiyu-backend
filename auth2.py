@@ -1,8 +1,6 @@
 import sys
 import requests
 
-
-
 # 3. Once you've authorised your application, you will be redirected to the webpage you've
 #    specified in the API panel. The URL will contain a parameter named "code" (the Authorisation
 #    Code). You need to feed that code to the application.
@@ -31,20 +29,6 @@ def generate_new_token(authorisation_code: str, code_verifier: str) -> dict:
     #     print('Token saved in "token.json"')
 
     return token
-
-
-# 4. Test the API by requesting your profile information
-def print_user_info(access_token: str):
-    url = 'https://api.myanimelist.net/v2/users/@me'
-    response = requests.get(url, headers = {
-        'Authorization': f'Bearer {access_token}'
-        })
-    # print(response)
-    response.raise_for_status()
-    user = response.json()
-    response.close()
-
-    print(f"\n>>> Greetings {user['name']}! <<<")
 
 
 if __name__ == '__main__':
