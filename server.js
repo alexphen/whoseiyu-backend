@@ -162,7 +162,7 @@ app.post('/api/mal', async(req, res) => {
             console.log(error.message)
             // Private Account
             if (error.message.includes("403:")) {
-		let dataToSend = {};
+		        let dataToSend = {};
                 // spawn new child process to call the python script 
                 // and pass the variable values to the python script
                 const python = spawn('python3', ['auth.py', req.body.Username]);
