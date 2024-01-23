@@ -1,5 +1,4 @@
 import sys
-print ("pre")
 import requests
 
 print("passed")
