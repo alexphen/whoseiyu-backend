@@ -48,7 +48,6 @@ def print_user_info(access_token: str):
 
 
 if __name__ == '__main__':
-    print (sys.argv)
     CLIENT_ID = sys.argv[1]
     CLIENT_SECRET = sys.argv[2]
     authorisation_code = sys.argv[3]
