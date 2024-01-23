@@ -170,7 +170,6 @@ app.post('/api/mal', async(req, res) => {
                 python.stdout.on('data', function(data) {
                     console.log('Pipe data from python script ...');
                     data = data.toString();
-		            console.log(data)
                     dataToSend["url"] = data.substring(0,data.indexOf(" "))
                     // dataToSend["veri"] = data.substring(data.indexOf(" ") + 1, data.indexOf("\n"))
                     dataToSend["veri"] = data.includes("\r") 
@@ -231,7 +230,7 @@ app.post('/api/auth', async(req, res) => {
             let dataToSend = {};
                 // spawn new child process to call the python script 
                 // and pass the variable values to the python script
-                const python = spawn('python3', ['auth2.py', req.body.code, req.body.veri]);
+                const python = spawn('python3', ['auth2.py', process.env.MAL_CLIENT_ID, process.env.MAL_CLIENT_SECRET, req.body.code, req.body.veri]);
                 // collect data from script 
                 python.stdout.on('data', function (data) {
                     console.log('Pipe data from python script ...');
