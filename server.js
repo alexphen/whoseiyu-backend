@@ -244,6 +244,9 @@ app.post('/api/auth', async(req, res) => {
                     // send data to browser
                     res.send(dataToSend)
                 });
+                python.on('error', function(err) {
+                    console.log("error:", err)
+                })
         } catch (error) {
             console.log(error.message)
         }
