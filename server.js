@@ -170,7 +170,7 @@ app.post('/api/mal', async(req, res) => {
                 python.stdout.on('data', function (data) {
                     console.log('Pipe data from python script ...');
                     data = data.toString();
-		            // console.log(data)
+		            console.log(data)
                     dataToSend["url"] = data.substring(0,data.indexOf(" "))
                     // dataToSend["veri"] = data.substring(data.indexOf(" ") + 1, data.indexOf("\n"))
                     dataToSend["veri"] = data.includes("\r") 
