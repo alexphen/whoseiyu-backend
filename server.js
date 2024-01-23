@@ -167,7 +167,7 @@ app.post('/api/mal', async(req, res) => {
                 // and pass the variable values to the python script
                 const python = spawn('python3', ['auth.py', process.env.MAL_CLIENT_ID, process.env.MAL_CLIENT_SECRET]);
                 // collect data from script
-                python.stdout.on('data', function (data) {
+                python.stdout.on('data', function(data) {
                     console.log('Pipe data from python script ...');
                     data = data.toString();
 		            console.log(data)
@@ -182,6 +182,7 @@ app.post('/api/mal', async(req, res) => {
                 // in close event we are sure that stream from child process is closed
                 python.on('close', (code) => {
                     console.log(`child process close all stdio with code ${code}`);
+		            console.log(dataToSend)
                     // send data to browser
                     res.send(dataToSend)
                 });            

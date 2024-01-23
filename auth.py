@@ -2,9 +2,7 @@ import secrets
 import os
 import sys
 # from decouple import config
-from dotenv import load_dotenv
 
-load_dotenv()
 
 CLIENT_ID = sys.argv[1]
 CLIENT_SECRET = sys.argv[2]
