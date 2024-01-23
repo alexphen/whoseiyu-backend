@@ -239,7 +239,6 @@ const getShowActors = async(showID, flag) => {
 }
 const getMAL = async(Username, auth) => {
     const list = MAL().user_animelist;
-    console.log(process.env.MAL_CLIENT_ID)
     var res;
     if (auth) {
         console.log("authed")
