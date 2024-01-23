@@ -227,26 +227,39 @@ app.post('/api/auth', async(req, res) => {
     try {
         console.log('Called auth');
         try {
-            let dataToSend = {};
-                // spawn new child process to call the python script 
-                // and pass the variable values to the python script
-                const python = spawn('python3', ['auth2.py', process.env.MAL_CLIENT_ID, process.env.MAL_CLIENT_SECRET, req.body.code, req.body.veri]);
-                // collect data from script 
-                python.stdout.on('data', function (data) {
-                    console.log('Pipe data from python script ...');
-                    dataToSend = JSON.parse(data.toString().replaceAll("\'", "\""));
-                    // res.send(dataToSend);
-                });
-                // in close event we are sure that stream from child process is closed
-                python.on('close', (code) => {
-                    console.log(`child process close all stdio with code ${code}`);
-                    // console.log(dataToSend)
-                    // send data to browser
-                    res.send(dataToSend)
-                });
-                python.on('error', function(err) {
-                    console.log("error:", err)
-                })
+            fetch('https://myanimelist.net/v1/oauth2/token', {
+                    method: 'GET',
+                    headers: {
+                        'client_id': 'CLIENT_ID',
+                        'client_secret': 'CLIENT_SECRET',
+                        'code': 'authorisation_code',
+                        'code_verifier': 'code_verifier',
+                        'grant_type': 'authorization_code'
+                    }
+                }
+            )
+
+
+            // let dataToSend = {};
+            //     // spawn new child process to call the python script 
+            //     // and pass the variable values to the python script
+            //     const python = spawn('python3', ['auth2.py', process.env.MAL_CLIENT_ID, process.env.MAL_CLIENT_SECRET, req.body.code, req.body.veri]);
+            //     // collect data from script 
+            //     python.stdout.on('data', function (data) {
+            //         console.log('Pipe data from python script ...');
+            //         dataToSend = JSON.parse(data.toString().replaceAll("\'", "\""));
+            //         // res.send(dataToSend);
+            //     });
+            //     // in close event we are sure that stream from child process is closed
+            //     python.on('close', (code) => {
+            //         console.log(`child process close all stdio with code ${code}`);
+            //         // console.log(dataToSend)
+            //         // send data to browser
+            //         res.send(dataToSend)
+            //     });
+            //     python.on('error', function(err) {
+            //         console.log("error:", err)
+            //     })
         } catch (error) {
             console.log(error.message)
         }
