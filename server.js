@@ -227,17 +227,19 @@ app.post('/api/auth', async(req, res) => {
     try {
         console.log('Called auth');
         try {
-            fetch('https://myanimelist.net/v1/oauth2/token', {
+            const token = await fetch('https://myanimelist.net/v1/oauth2/token', {
                     method: 'GET',
                     headers: {
-                        'client_id': 'CLIENT_ID',
-                        'client_secret': 'CLIENT_SECRET',
-                        'code': 'authorisation_code',
-                        'code_verifier': 'code_verifier',
+                        'client_id': process.env.MAL_CLIENT_ID,
+                        'client_secret': process.env.MAL_CLIENT_SECRET,
+                        'code': req.body.code,
+                        'code_verifier': req.body.veri,
                         'grant_type': 'authorization_code'
                     }
                 }
             )
+
+            res.send(token)
 
 
             // let dataToSend = {};
