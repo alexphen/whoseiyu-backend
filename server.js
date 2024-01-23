@@ -225,7 +225,7 @@ app.post('/api/top', async(req, res) => {
 
 app.post('/api/auth', async(req, res) => {
     try {
-        console.log('Called auth');
+        console.log('Called auth', req.body.code, req.body.veri);
         try {
             const token = await fetch('https://myanimelist.net/v1/oauth2/token', {
                     method: 'GET',
@@ -237,9 +237,9 @@ app.post('/api/auth', async(req, res) => {
                         'grant_type': 'authorization_code'
                     }
                 }
-            ).then(
-            console.log(token),
-            res.send(token))
+            )
+            console.log(token)
+            res.send(token)
 
 
             // let dataToSend = {};
