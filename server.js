@@ -227,8 +227,8 @@ app.post('/api/auth', async(req, res) => {
     try {
         console.log('Called auth', req.body.code, req.body.veri);
         try {
-            const token = await fetch('https://myanimelist.net/v1/oauth2/token', {
-                    method: 'GET',
+            const response = await fetch('https://myanimelist.net/v1/oauth2/token', {
+                    method: 'POST',
                     headers: {
                         'client_id': process.env.MAL_CLIENT_ID,
                         'client_secret': process.env.MAL_CLIENT_SECRET,
@@ -238,6 +238,7 @@ app.post('/api/auth', async(req, res) => {
                     }
                 }
             )
+            token = response.json()
             console.log(token)
             res.send(token)
 
