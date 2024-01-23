@@ -1,5 +1,5 @@
 import sys
-import requests
+# import requests
 
 # 3. Once you've authorised your application, you will be redirected to the webpage you've
 #    specified in the API panel. The URL will contain a parameter named "code" (the Authorisation
@@ -32,6 +32,10 @@ def generate_new_token(authorisation_code: str, code_verifier: str) -> dict:
 
 
 if __name__ == '__main__':
+    print(sys.argv[1])
+    print(sys.argv[2])
+    print(sys.argv[3])
+    print(sys.argv[4])
     CLIENT_ID = sys.argv[1]
     CLIENT_SECRET = sys.argv[2]
     authorisation_code = sys.argv[3]
