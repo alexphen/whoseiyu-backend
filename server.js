@@ -165,7 +165,7 @@ app.post('/api/mal', async(req, res) => {
 		        let dataToSend = {};
                 // spawn new child process to call the python script 
                 // and pass the variable values to the python script
-                const python = spawn('python3', ['auth.py', req.body.Username]);
+                const python = spawn('python3', ['auth.py', process.env.MAL_CLIENT_ID, process.env.MAL_CLIENT_SECRET]);
                 // collect data from script
                 python.stdout.on('data', function (data) {
                     console.log('Pipe data from python script ...');
