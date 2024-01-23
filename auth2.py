@@ -1,7 +1,7 @@
 import sys
 # import requests
 
-print("passed")
+
 
 # 3. Once you've authorised your application, you will be redirected to the webpage you've
 #    specified in the API panel. The URL will contain a parameter named "code" (the Authorisation
