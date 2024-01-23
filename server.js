@@ -237,9 +237,9 @@ app.post('/api/auth', async(req, res) => {
                         'grant_type': 'authorization_code'
                     }
                 }
-            )
-
-            res.send(token)
+            ).then(
+            console.log(token),
+            res.send(token))
 
 
             // let dataToSend = {};
