@@ -32,10 +32,10 @@ def generate_new_token(authorisation_code: str, code_verifier: str) -> dict:
 
 
 if __name__ == '__main__':
-    print(sys.argv[1])
-    print(sys.argv[2])
-    print(sys.argv[3])
-    print(sys.argv[4])
+    print("ID", sys.argv[1])
+    print("SEC", sys.argv[2])
+    print("auth", sys.argv[3])
+    print("code", sys.argv[4])
     CLIENT_ID = sys.argv[1]
     CLIENT_SECRET = sys.argv[2]
     authorisation_code = sys.argv[3]
