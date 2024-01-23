@@ -3,6 +3,7 @@ import os
 import sys
 # from decouple import config
 
+print(sys.argv[1])
 
 CLIENT_ID = sys.argv[1]
 CLIENT_SECRET = sys.argv[2]
