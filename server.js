@@ -35,6 +35,7 @@ async function init() {
         try {
             // get connection from the pool and use it
             connection = await oracledb.getConnection();
+            console.log("Successfully Connected")
         } catch (err) {
             console.log("err1");
             throw (err);
